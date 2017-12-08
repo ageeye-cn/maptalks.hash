@@ -3,6 +3,7 @@ import * as maptalks from 'maptalks';
 const template = "{zoom}/{pitch}/{bearing}/{x}/{y}"
 
 export class Hash extends maptalks.Class {
+    //@param {object} map
     constructor(map) {
         super()
 
@@ -10,6 +11,9 @@ export class Hash extends maptalks.Class {
         this._view = this._map.getView()
         this.bindEvent()
         this.updateView()
+
+        const hash = this.viewToHash(this._view)
+        this.setHash(hash)
     }
 
     bindEvent() {
@@ -80,6 +84,8 @@ export class Hash extends maptalks.Class {
             !isNaN(y) && y >= -90 && y <= 90
         ){
             this.setView({center:[x,y], zoom, pitch, bearing})
+        }else{
+            return false
         }
     }
 

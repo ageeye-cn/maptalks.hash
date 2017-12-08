@@ -1,6 +1,6 @@
 /*!
  * maptalks.hash v0.1.0
- * LICENSE : 
+ * LICENSE : MIT
  * (c) 2016-2017 maptalks.org
  */
 /*!
@@ -21,6 +21,7 @@ var template = "{zoom}/{pitch}/{bearing}/{x}/{y}";
 var Hash = function (_maptalks$Class) {
     _inherits(Hash, _maptalks$Class);
 
+    //@param {object} map
     function Hash(map) {
         _classCallCheck(this, Hash);
 
@@ -30,6 +31,9 @@ var Hash = function (_maptalks$Class) {
         _this._view = _this._map.getView();
         _this.bindEvent();
         _this.updateView();
+
+        var hash = _this.viewToHash(_this._view);
+        _this.setHash(hash);
         return _this;
     }
 
@@ -108,6 +112,8 @@ var Hash = function (_maptalks$Class) {
 
         if (!isNaN(zoom) && zoom >= 1 && zoom <= 21 && !isNaN(pitch) && pitch >= 0 && pitch <= 90 && !isNaN(bearing) && bearing >= -180 && bearing <= 180 && !isNaN(x) && x >= -180 && x <= 180 && !isNaN(y) && y >= -90 && y <= 90) {
             this.setView({ center: [x, y], zoom: zoom, pitch: pitch, bearing: bearing });
+        } else {
+            return false;
         }
     };
 
