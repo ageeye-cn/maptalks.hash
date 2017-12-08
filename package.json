@@ -1,8 +1,8 @@
 {
   "name": "maptalks.hash",
   "version": "0.1.0",
-  "description": "",
-  "license": "",
+  "description": "Add URL hashes to web pages with maptalks",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": ""

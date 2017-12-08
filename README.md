@@ -1,5 +1,13 @@
-# maptalks-plugin
+# maptalks-hash
 
-A simple maptalks plugin scaffolding project.
+Add URL hashes to web pages with maptalks
 
-* maptalks's [plugin development tutorial](https://github.com/maptalks/maptalks.js/wiki)
+# Getting started
+
+```javascript
+    var hash = new maptalks.Hash(map)
+```
+
+# License
+
+MIT License.

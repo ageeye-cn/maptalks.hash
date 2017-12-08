@@ -20,24 +20,20 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
 
-var defaultOptions = {
-    precision: 3,
-    template: "{zoom}/{pitch}/{bearing}/{x}/{y}"
-};
+var template = "{zoom}/{pitch}/{bearing}/{x}/{y}";
 
 var Hash = function (_maptalks$Class) {
     _inherits(Hash, _maptalks$Class);
 
-    function Hash(map, options) {
+    function Hash(map) {
         _classCallCheck(this, Hash);
 
-        options = Object.assign({}, defaultOptions, options);
-
-        var _this = _possibleConstructorReturn(this, _maptalks$Class.call(this, options));
+        var _this = _possibleConstructorReturn(this, _maptalks$Class.call(this));
 
         _this._map = map;
         _this._view = _this._map.getView();
         _this.bindEvent();
+        _this.updateView();
         return _this;
     }
 
@@ -45,10 +41,16 @@ var Hash = function (_maptalks$Class) {
         maptalks.DomUtil.addDomEvent(window, 'hashchange', this.onHashChange, this);
         this._map.on('viewchange', this.onViewChange, this);
     };
+    //@param {string} hash
 
-    Hash.prototype.setHash = function setHash() {};
 
-    Hash.prototype.getHash = function getHash() {};
+    Hash.prototype.setHash = function setHash(hash) {
+        window.location.hash = hash;
+    };
+
+    Hash.prototype.getHash = function getHash() {
+        return window.location.hash;
+    };
 
     Hash.prototype.getView = function getView() {
         return this._map.getView();
@@ -62,30 +64,67 @@ var Hash = function (_maptalks$Class) {
         this._map.setView(view);
     };
 
-    Hash.prototype.onHashChange = function onHashChange(event) {
-        if (window.location.hash === this.viewToHash(this.getView())) {
-            console.log(111111);
-            return;
+    Hash.prototype.updateView = function updateView() {
+        var hash = this.getHash(),
+            view = this.hashToView(hash);
+
+        if (view) {
+            this._map.setView(view);
         }
     };
 
+    Hash.prototype.onHashChange = function onHashChange() {
+        this.updateView();
+    };
+
     Hash.prototype.onViewChange = function onViewChange(event) {
-        window.location.hash = this.viewToHash(event.new);
+        var hash = this.viewToHash(event.new);
+
+        this.setHash(hash);
+    };
+
+    //@param {string} hash
+
+
+    Hash.prototype.hashToView = function hashToView(hash) {
+        if (hash.indexOf('#') === 0) {
+            hash = hash.substr(1);
+        }
+
+        var params = hash.split('/');
+
+        if (params.length !== 5) {
+            return false;
+        }
+
+        var zoom = params[0],
+            pitch = params[1],
+            bearing = params[2],
+            x = params[3],
+            y = params[4];
+
+
+        zoom = parseInt(zoom);
+        pitch = parseInt(pitch);
+        bearing = parseInt(bearing);
+        x = parseFloat(x);
+        y = parseFloat(y);
+
+        if (!isNaN(zoom) && zoom >= 1 && zoom <= 21 && !isNaN(pitch) && pitch >= 0 && pitch <= 90 && !isNaN(bearing) && bearing >= -180 && bearing <= 180 && !isNaN(x) && x >= -180 && x <= 180 && !isNaN(y) && y >= -90 && y <= 90) {
+            this.setView({ center: [x, y], zoom: zoom, pitch: pitch, bearing: bearing });
+        }
     };
 
     //@param {object} view
 
 
     Hash.prototype.viewToHash = function viewToHash(view) {
-        var _options = this.options,
-            template = _options.template,
-            precision = _options.precision;
-
+        var precision = Math.max(0, Math.ceil(Math.log(view.zoom) / Math.LN2));
 
         return maptalks.StringUtil.replaceVariable(template, {
             zoom: view.zoom,
-            pitch: Math.floor(view.pitch),
-            bearing: Math.floor(view.bearing),
+            pitch: parseInt(view.pitch),
+            bearing: parseInt(view.bearing),
             x: view.center[0].toFixed(precision),
             y: view.center[1].toFixed(precision)
         });
