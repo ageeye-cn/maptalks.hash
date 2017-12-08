@@ -1,0 +1,33 @@
+{
+  "name": "maptalks.hash",
+  "version": "0.1.0",
+  "description": "",
+  "license": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "main": "dist/maptalks.hash.js",
+  "module": "dist/maptalks.hash.es.js",
+  "jsnext:main": "dist/maptalks.hash.es.js",
+  "files" : [
+    "dist/maptalks.hash.js",
+    "dist/maptalks.hash.min.js",
+    "dist/maptalks.hash.es.js"
+  ],
+  "scripts": {
+    "version": "gulp minify && git add -A dist",
+    "prepublish": "gulp minify"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "babel-preset-es2015": "^6.18.0",
+    "gulp": "^3.9.0",
+    "maptalks": ">=0.36.0",
+    "maptalks-build-helpers": "^0.4.2"
+  },
+  "peerDependencies": {
+    "maptalks": ">=0.31.0"
+  },
+  "dependencies": {}
+}
