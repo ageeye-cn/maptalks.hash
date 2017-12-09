@@ -2,7 +2,7 @@
 
 Add URL hashes to web pages with maptalks
 
-# Getting started
+# Usage
 
 ```javascript
     var hash = new maptalks.Hash(map)
