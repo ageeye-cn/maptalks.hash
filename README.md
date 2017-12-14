@@ -1,6 +1,8 @@
 # maptalks-hash
 
-Add URL hashes to web pages with maptalks
+Add URL hashes to web pages with [maptalks](http://maptalks.org/).
+
+[demo](https://ageeye-cn.github.io/maptalks.hash//demo/index.html)
 
 # Usage
 
