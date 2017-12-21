@@ -1,5 +1,5 @@
 /*!
- * maptalks.hash v0.1.0
+ * maptalks.hash v0.1.1
  * LICENSE : MIT
  * (c) 2016-2017 maptalks.org
  */
@@ -16,7 +16,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
 
-var template = "{zoom}/{pitch}/{bearing}/{x}/{y}";
+var template = "#{zoom}/{pitch}/{bearing}/{x}/{y}";
 
 var Hash = function (_maptalks$Class) {
     _inherits(Hash, _maptalks$Class);
@@ -80,7 +80,10 @@ var Hash = function (_maptalks$Class) {
     Hash.prototype.onViewChange = function onViewChange(event) {
         var hash = this.viewToHash(event.new);
 
-        this.setHash(hash);
+        if (hash !== this.getHash()) {
+            console.log(hash, this.getHash());
+            this.setHash(hash);
+        }
     };
 
     //@param {string} hash
@@ -137,4 +140,4 @@ var Hash = function (_maptalks$Class) {
 
 export { Hash };
 
-typeof console !== 'undefined' && console.log('maptalks.hash v0.1.0, requires maptalks@>=0.31.0.');
+typeof console !== 'undefined' && console.log('maptalks.hash v0.1.1, requires maptalks@>=0.31.0.');

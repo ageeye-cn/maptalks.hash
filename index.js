@@ -1,6 +1,6 @@
 import * as maptalks from 'maptalks';
 
-const template = "{zoom}/{pitch}/{bearing}/{x}/{y}"
+const template = "#{zoom}/{pitch}/{bearing}/{x}/{y}"
 
 export class Hash extends maptalks.Class {
     //@param {object} map
@@ -46,6 +46,7 @@ export class Hash extends maptalks.Class {
             this._map.setView(view)
         }
     }
+
     onHashChange() {
         this.updateView()
     }
@@ -53,7 +54,10 @@ export class Hash extends maptalks.Class {
     onViewChange(event) {
         const hash = this.viewToHash(event.new)
 
-        this.setHash(hash)
+        if (hash !== this.getHash()){
+            console.log(hash, this.getHash())
+            this.setHash(hash)
+        }
     }
 
     //@param {string} hash
