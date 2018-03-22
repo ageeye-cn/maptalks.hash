@@ -97,8 +97,8 @@ export class Hash extends maptalks.Class {
             zoom: view.zoom,
             pitch: parseInt(view.pitch),
             bearing: parseInt(view.bearing),
-            x: view.center[0].toFixed(precision),
-            y: view.center[1].toFixed(precision)
+            x: view.center[0].toFixed(precision+2),
+            y: view.center[1].toFixed(precision+2)
         })
     }
 }

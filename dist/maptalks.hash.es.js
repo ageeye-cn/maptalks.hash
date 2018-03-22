@@ -1,7 +1,7 @@
 /*!
- * maptalks.hash v0.1.0
+ * maptalks.hash v0.1.1
  * LICENSE : MIT
- * (c) 2016-2017 maptalks.org
+ * (c) 2016-2018 maptalks.org
  */
 /*!
  * requires maptalks@>=0.31.0 
@@ -127,8 +127,8 @@ var Hash = function (_maptalks$Class) {
             zoom: view.zoom,
             pitch: parseInt(view.pitch),
             bearing: parseInt(view.bearing),
-            x: view.center[0].toFixed(precision),
-            y: view.center[1].toFixed(precision)
+            x: view.center[0].toFixed(precision + 2),
+            y: view.center[1].toFixed(precision + 2)
         });
     };
 
@@ -137,4 +137,4 @@ var Hash = function (_maptalks$Class) {
 
 export { Hash };
 
-typeof console !== 'undefined' && console.log('maptalks.hash v0.1.0, requires maptalks@>=0.31.0.');
+typeof console !== 'undefined' && console.log('maptalks.hash v0.1.1, requires maptalks@>=0.31.0.');
