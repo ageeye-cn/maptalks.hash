@@ -1,5 +1,5 @@
 /*!
- * maptalks.hash v0.1.1
+ * maptalks.hash v0.1.2
  * LICENSE : MIT
  * (c) 2016-2018 maptalks.org
  */
@@ -137,4 +137,4 @@ var Hash = function (_maptalks$Class) {
 
 export { Hash };
 
-typeof console !== 'undefined' && console.log('maptalks.hash v0.1.1, requires maptalks@>=0.31.0.');
+typeof console !== 'undefined' && console.log('maptalks.hash v0.1.2, requires maptalks@>=0.31.0.');
