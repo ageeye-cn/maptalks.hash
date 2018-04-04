@@ -48,12 +48,10 @@ export class Hash extends maptalks.Class {
         }
     }
     onHashChange() {
-        console.log('onHashChange')
         if (this._updateing === true){
             return
         }
         this.updateView()
-        console.log('updateView')
     }
 
     onViewChange(event) {
