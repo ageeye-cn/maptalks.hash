@@ -1,5 +1,5 @@
 /*!
- * maptalks.hash v0.1.2
+ * maptalks.hash v0.1.3
  * LICENSE : MIT
  * (c) 2016-2018 maptalks.org
  */
@@ -28,6 +28,7 @@ var Hash = function (_maptalks$Class) {
         var _this = _possibleConstructorReturn(this, _maptalks$Class.call(this));
 
         _this._map = map;
+        _this._updateing = false;
         _this._view = _this._map.getView();
         _this.bindEvent();
         _this.updateView();
@@ -74,13 +75,24 @@ var Hash = function (_maptalks$Class) {
     };
 
     Hash.prototype.onHashChange = function onHashChange() {
+        console.log('onHashChange');
+        if (this._updateing === true) {
+            return;
+        }
         this.updateView();
+        console.log('updateView');
     };
 
     Hash.prototype.onViewChange = function onViewChange(event) {
-        var hash = this.viewToHash(event.new);
+        var _this2 = this;
 
+        var hash = this.viewToHash(event.new);
+        this._updateing = true;
         this.setHash(hash);
+
+        setTimeout(function () {
+            return _this2._updateing = false;
+        }, 0);
     };
 
     //@param {string} hash
@@ -137,4 +149,4 @@ var Hash = function (_maptalks$Class) {
 
 export { Hash };
 
-typeof console !== 'undefined' && console.log('maptalks.hash v0.1.2, requires maptalks@>=0.31.0.');
+typeof console !== 'undefined' && console.log('maptalks.hash v0.1.3, requires maptalks@>=0.31.0.');

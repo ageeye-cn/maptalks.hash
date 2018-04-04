@@ -8,6 +8,7 @@ export class Hash extends maptalks.Class {
         super()
 
         this._map = map
+        this._updateing = false
         this._view = this._map.getView()
         this.bindEvent()
         this.updateView()
@@ -47,13 +48,20 @@ export class Hash extends maptalks.Class {
         }
     }
     onHashChange() {
+        console.log('onHashChange')
+        if (this._updateing === true){
+            return
+        }
         this.updateView()
+        console.log('updateView')
     }
 
     onViewChange(event) {
         const hash = this.viewToHash(event.new)
-
+        this._updateing = true
         this.setHash(hash)
+
+        setTimeout(()=>this._updateing = false, 0)
     }
 
     //@param {string} hash
